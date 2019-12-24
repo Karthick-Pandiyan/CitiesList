@@ -1,5 +1,8 @@
 package com.kp.androidworldcities
 
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
@@ -22,4 +25,8 @@ class MainInstrumentedTest {
         Assert.assertEquals("com.kp.androidworldcities", appContext.packageName)
     }
 
+    @Test
+    fun test_user_can_enter_search_text(){
+        Espresso.onView(ViewMatchers.withId(R.id.edtSearchInput)).perform(ViewActions.typeText("Novinki"))
+    }
 }
