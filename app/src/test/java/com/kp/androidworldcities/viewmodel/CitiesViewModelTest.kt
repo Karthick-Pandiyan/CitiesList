@@ -16,8 +16,14 @@ class CitiesViewModelTest {
     }
 
     @Test
-    fun `test given view model returns Null value from getCitiesList`() {
+    fun `Given view model returns Null value from getCitiesList`() {
         viewModel.getCitiesList()
         viewModel.mutableLiveData?.value?.isEmpty()?.let { Assert.assertNull(it) }
+    }
+
+    @Test
+    fun `Given view model returns values from getCitiesList`(){
+        viewModel.getCitiesList()
+        viewModel.mutableLiveData?.value?.let { Assert.assertEquals(it.get(0).name, "India") }
     }
 }

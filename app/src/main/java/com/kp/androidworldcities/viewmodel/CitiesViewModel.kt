@@ -9,6 +9,12 @@ class CitiesViewModel {
     var mutableLiveData: MutableLiveData<List<Cities>>? = null
 
     fun getCitiesList(): Unit? {
-        return mutableLiveData?.setValue(null)
+        var citiesList = mutableListOf<Cities>()
+        var cities = Cities()
+        cities.name = "TamilNadu"
+        cities.country = "India"
+        citiesList.add(cities)
+
+        return mutableLiveData?.setValue(citiesList)
     }
 }
