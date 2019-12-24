@@ -54,4 +54,10 @@ class CitiesViewModelTest {
 
         Assert.assertEquals(viewModel.existingCitiesList.get(0).name, "TamilNadu")
     }
+
+    @Test
+    fun `test do search function returns not null when original data is empty`(){
+        viewModel.configureCitiesData(emptyList())
+        Assert.assertNotNull(viewModel.doSearch(""))
+    }
 }
