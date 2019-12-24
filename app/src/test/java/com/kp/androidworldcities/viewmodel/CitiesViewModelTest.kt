@@ -1,5 +1,6 @@
 package com.kp.androidworldcities.viewmodel
 
+import com.kp.androidworldcities.model.Cities
 import com.kp.androidworldcities.repository.CitiesRepository
 import org.junit.Assert
 import org.junit.Before
@@ -19,7 +20,7 @@ class CitiesViewModelTest {
 
     @Test
     fun `Given view model returns values from getCitiesList`(){
-        citiesRepository.mutableLiveData.value?.let { Assert.assertEquals(it.get(0).name, "India") }
+        citiesRepository.mutableLiveData.value?.let { Assert.assertEquals(it.get(0).country, "India") }
     }
 
     @Test
@@ -31,5 +32,13 @@ class CitiesViewModelTest {
     fun `Given view model and repository returns same value when retrieving list of cities`(){
         citiesRepository.fetchCitiesList().value?.let { Assert.assertEquals(it.get(0).name,
             viewModel.getCitiesList.value?.get(0)?.name) }
+    }
+
+    @Test
+    fun `test given view model configuring the data into configureCitiesData function when it returns empty list`(){
+
+        viewModel.configureCitiesData(emptyList())
+
+        Assert.assertEquals(viewModel.existingCitiesList.size, 0)
     }
 }
