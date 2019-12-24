@@ -6,7 +6,9 @@ import com.kp.androidworldcities.model.Cities
 
 class CitiesViewModel {
 
-    fun getCitiesList(): LiveData<List<Cities>> {
-        return MutableLiveData<List<Cities>>()
+    var mutableLiveData: MutableLiveData<List<Cities>>? = null
+
+    fun getCitiesList(): Unit? {
+        return mutableLiveData?.setValue(null)
     }
 }
