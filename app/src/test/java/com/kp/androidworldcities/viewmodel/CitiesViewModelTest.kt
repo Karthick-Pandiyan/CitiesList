@@ -41,4 +41,17 @@ class CitiesViewModelTest {
 
         Assert.assertEquals(viewModel.existingCitiesList.size, 0)
     }
+
+    @Test
+    fun `test given view model configuring the data into configureCitiesData function`(){
+        val citiesList = mutableListOf<Cities>()
+        val cities = Cities()
+        cities.name = "TamilNadu"
+        cities.country = "India"
+        citiesList.add(cities)
+
+        viewModel.configureCitiesData(citiesList)
+
+        Assert.assertEquals(viewModel.existingCitiesList.get(0).name, "TamilNadu")
+    }
 }
