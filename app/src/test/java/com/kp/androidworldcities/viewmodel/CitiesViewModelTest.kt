@@ -1,6 +1,5 @@
-package com.kp.androidworldcities
+package com.kp.androidworldcities.viewmodel
 
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -10,10 +9,6 @@ class CitiesViewModelTest {
 
     @Before
     fun setUp() {
-    }
-
-    @After
-    fun tearDown() {
     }
 
     @Test
