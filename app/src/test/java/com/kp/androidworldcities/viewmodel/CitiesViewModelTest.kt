@@ -29,7 +29,7 @@ class CitiesViewModelTest {
 
     @Test
     fun `Given view model and repository returns same value when retrieving list of cities`(){
-        citiesRepository.mutableLiveData.value?.let { Assert.assertEquals(it.get(0).name,
+        citiesRepository.fetchCitiesList().value?.let { Assert.assertEquals(it.get(0).name,
             viewModel.getCitiesList.value?.get(0)?.name) }
     }
 }
