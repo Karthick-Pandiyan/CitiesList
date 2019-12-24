@@ -8,11 +8,16 @@ import retrofit2.Response
 
 class CitiesRepository {
 
-    internal val mutableLiveData = MutableLiveData<List<Cities>>()
+    val mutableLiveData = MutableLiveData<List<Cities>>()
 
-    fun fetchCitiesList(): MutableLiveData<List<Cities>>? {
-
-        return null
+    fun fetchCitiesList(): MutableLiveData<List<Cities>>  {
+        var citiesList = mutableListOf<Cities>()
+        var cities = Cities()
+        cities.name = "TamilNadu"
+        cities.country = "India"
+        citiesList.add(cities)
+        mutableLiveData.postValue(citiesList)
+        return mutableLiveData
     }
 
 }

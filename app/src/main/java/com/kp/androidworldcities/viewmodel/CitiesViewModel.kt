@@ -7,14 +7,9 @@ import com.kp.androidworldcities.repository.CitiesRepository
 
 class CitiesViewModel {
 
-    private val citiesRepository : CitiesRepository
-    var mutableLiveData: MutableLiveData<List<Cities>>? = null
+    private val citiesRepository = CitiesRepository()
 
-    init {
-        citiesRepository = CitiesRepository()
-    }
-
-    val getCitiesList : MutableLiveData<List<Cities>>?
+    val getCitiesList : LiveData<List<Cities>>
         get() = this.citiesRepository.fetchCitiesList()
 
 }
