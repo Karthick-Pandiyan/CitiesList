@@ -28,7 +28,7 @@ class CitiesViewModel : ViewModel() {
 
     fun search(query : String): Completable = Completable.create {
         val extractedList = originalCitiesList.filter {
-            it.name!!.contains(query) || it.country!!.contains(query)
+            it.name?.contains(query)==true || it.country?.contains(query)==true
         }.toList()
 
         filteredCitiesList.clear()

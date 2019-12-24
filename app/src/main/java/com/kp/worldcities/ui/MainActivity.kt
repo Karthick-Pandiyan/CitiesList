@@ -18,22 +18,24 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.concurrent.TimeUnit
 
+
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: CitiesViewModel
+    private lateinit var citiesViewModel: CitiesViewModel
     private val disposable = CompositeDisposable()
+    lateinit var citiesAdapter : CitiesRecyclerAdapter;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this).get(CitiesViewModel::class.java)
+        citiesViewModel = ViewModelProviders.of(this).get(CitiesViewModel::class.java)
+        setupRecyclerAdapter()
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        viewModel.getAllCities.observe(this, Observer { citiesList ->
+        citiesViewModel.getAllCities.observe(this, Observer { citiesList ->
             citiesList?.let {
                 progressBar.visibility = View.GONE
-                viewModel.configureCitiesData(it)
+                citiesViewModel.configureCitiesData(it)
                 setCitiesListAdapter(it)
                 initializeSearch()
             }
@@ -45,19 +47,25 @@ class MainActivity : AppCompatActivity() {
             .textChanges()
             .debounce(200, TimeUnit.MILLISECONDS)
             .subscribe {
-                viewModel.search(it.toString())
+                citiesViewModel.search(it.toString())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
-                        viewModel.existingCitiesList.clear()
-                        viewModel.existingCitiesList.addAll(viewModel.filteredCitiesList)
-                        setCitiesListAdapter(viewModel.existingCitiesList)
+                        citiesViewModel.existingCitiesList.clear()
+                        citiesViewModel.existingCitiesList.addAll(citiesViewModel.filteredCitiesList)
+                        setCitiesListAdapter(citiesViewModel.existingCitiesList)
                     }.addTo(disposable)
             }.addTo(disposable)
     }
 
-    private fun setCitiesListAdapter(it: List<Cities>) {
-        recyclerView.adapter = CitiesRecyclerAdapter(this, it)
+    private fun setupRecyclerAdapter() {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        citiesAdapter = CitiesRecyclerAdapter(this, listOf())
+        recyclerView.adapter = citiesAdapter
+    }
+
+    private fun setCitiesListAdapter(citiesList: List<Cities>) {
+        citiesAdapter.loadCities(citiesList)
     }
 
     override fun onDestroy() {

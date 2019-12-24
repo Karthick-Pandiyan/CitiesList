@@ -9,14 +9,12 @@ import com.kp.worldcities.R
 import com.kp.worldcities.model.Cities
 import kotlinx.android.synthetic.main.item_cities.view.*
 
-class CitiesRecyclerAdapter(private val context: Context, private val citiesList: List<Cities>):
+class CitiesRecyclerAdapter(private val context: Context, private var citiesList: List<Cities>):
         RecyclerView.Adapter<CitiesRecyclerAdapter.CityViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         return CityViewHolder(
-            LayoutInflater.from(
-                context
-            ).inflate(R.layout.item_cities, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_cities, parent, false)
         )
     }
 
@@ -30,5 +28,10 @@ class CitiesRecyclerAdapter(private val context: Context, private val citiesList
         fun bind(city: Cities) {
             itemView.tvCityTitle.text = city.getCityAndCountryTitle()
         }
+    }
+
+    fun loadCities(citiesList: List<Cities>){
+        this.citiesList = citiesList
+        notifyDataSetChanged()
     }
 }

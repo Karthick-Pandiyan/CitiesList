@@ -1,4 +1,4 @@
-package com.kp.worldcities.service;
+package com.kp.worldcities.repository;
 
 
 import com.kp.worldcities.model.Cities;

@@ -1,6 +1,7 @@
 package com.kp.worldcities.service
 
 import com.kp.worldcities.BuildConfig.BASE_URL
+import com.kp.worldcities.repository.CitiesAPIService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
