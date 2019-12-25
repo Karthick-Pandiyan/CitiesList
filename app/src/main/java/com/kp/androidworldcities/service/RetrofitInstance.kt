@@ -1,7 +1,6 @@
 package com.kp.androidworldcities.service
 
 import com.kp.androidworldcities.BuildConfig.BASE_URL
-import com.kp.androidworldcities.repository.CitiesAPIService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

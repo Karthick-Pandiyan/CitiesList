@@ -1,4 +1,4 @@
-package com.kp.androidworldcities.repository;
+package com.kp.androidworldcities.service;
 
 
 import com.kp.androidworldcities.model.Cities;
