@@ -103,4 +103,21 @@ class CitiesViewModelTest {
             }
         Assert.assertEquals(viewModel.existingCitiesList.size, 0)
     }
+
+    @Test
+    fun `Given doSearch function returns matching list when search object by name in the original list`() {
+        val citiesList = mutableListOf<Cities>()
+        val cities = Cities()
+        cities.name = "TamilNadu"
+        cities.country = "India"
+        citiesList.add(cities)
+
+        viewModel.configureCitiesData(citiesList)
+        viewModel.doSearch("TamilNadu")
+            .subscribe {
+                viewModel.existingCitiesList.clear()
+                viewModel.existingCitiesList.addAll(viewModel.filteredCitiesList)
+            }
+        Assert.assertEquals(cities.name, viewModel.existingCitiesList.get(0).name)
+    }
 }
