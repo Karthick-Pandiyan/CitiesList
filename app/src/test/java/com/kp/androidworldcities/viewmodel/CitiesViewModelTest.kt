@@ -87,4 +87,20 @@ class CitiesViewModelTest {
         Assert.assertEquals(viewModel.existingCitiesList.size, 0)
     }
 
+    @Test
+    fun `Given doSearch function returns empty list when search object contains lengthy string and if it doesn't matching list`() {
+        val citiesList = mutableListOf<Cities>()
+        val cities = Cities()
+        cities.name = "TamilNadu"
+        cities.country = "India"
+        citiesList.add(cities)
+
+        viewModel.configureCitiesData(citiesList)
+        viewModel.doSearch("abcdefghijklmnopqrstuvwxyz1234567890sjdhgskjhgbsdkgjbdfhdfh")
+            .subscribe {
+                viewModel.existingCitiesList.clear()
+                viewModel.existingCitiesList.addAll(viewModel.filteredCitiesList)
+            }
+        Assert.assertEquals(viewModel.existingCitiesList.size, 0)
+    }
 }
