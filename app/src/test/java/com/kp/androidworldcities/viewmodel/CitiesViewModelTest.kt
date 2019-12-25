@@ -83,4 +83,17 @@ class CitiesViewModelTest {
         Assert.assertFalse(cities.name, viewModel.doSearch("test"))
     }
 
+    @Test
+    fun `Given query returns true when search object found in the original list`() {
+        val citiesList = mutableListOf<Cities>()
+        val cities = Cities()
+        cities.name = "TamilNadu"
+        cities.country = "India"
+        citiesList.add(cities)
+
+        viewModel.configureCitiesData(citiesList)
+
+        Assert.assertTrue(cities.name, viewModel.doSearch("TamilNadu"))
+    }
+
 }
