@@ -6,6 +6,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
+import com.kp.androidworldcities.ui.MainActivity
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -16,7 +17,8 @@ class MainInstrumentedTest {
 
     @Rule
     @JvmField
-    val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(
+        MainActivity::class.java)
 
     @Test
     fun useAppContext() {
