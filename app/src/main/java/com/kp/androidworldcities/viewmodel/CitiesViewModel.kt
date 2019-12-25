@@ -10,7 +10,6 @@ class CitiesViewModel {
     private val citiesRepository = CitiesRepository()
     private var originalCitiesList = listOf<Cities>()
     val existingCitiesList : MutableList<Cities> = mutableListOf()
-    val filteredCitiesList : MutableList<Cities> = mutableListOf()
 
     val getCitiesList : LiveData<List<Cities>>
         get() = this.citiesRepository.fetchCitiesList()
@@ -20,14 +19,13 @@ class CitiesViewModel {
         existingCitiesList.addAll(citiesList)
     }
 
-    fun doSearch(query : String): Completable = Completable.create {
+    fun doSearch(query : String): Boolean{
         val extractedList = originalCitiesList.filter {
             it.name?.contains(query)==true || it.country?.contains(query)==true
         }.toList()
 
-        filteredCitiesList.clear()
-        filteredCitiesList.addAll(extractedList)
-        it.onComplete()
+        return !extractedList.isEmpty()
+
     }
 
 }
