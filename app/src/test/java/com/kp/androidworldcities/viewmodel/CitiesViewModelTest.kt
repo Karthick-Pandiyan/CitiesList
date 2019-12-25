@@ -71,7 +71,7 @@ class CitiesViewModelTest {
     }
 
     @Test
-    fun `Given query returns false when search object not found in the original list`() {
+    fun `Given doSearch function returns false when search object not found in the original list`() {
         val citiesList = mutableListOf<Cities>()
         val cities = Cities()
         cities.name = "TamilNadu"
@@ -84,7 +84,7 @@ class CitiesViewModelTest {
     }
 
     @Test
-    fun `Given query returns true when search object found in the original list`() {
+    fun `Given doSearch function returns true when search object found in the original list`() {
         val citiesList = mutableListOf<Cities>()
         val cities = Cities()
         cities.name = "TamilNadu"
@@ -94,6 +94,19 @@ class CitiesViewModelTest {
         viewModel.configureCitiesData(citiesList)
 
         Assert.assertTrue(cities.name, viewModel.doSearch("TamilNadu"))
+    }
+
+    @Test
+    fun `Given doSearch function returns false when search object contains lengthy string and if it doesn't matching list`() {
+        val citiesList = mutableListOf<Cities>()
+        val cities = Cities()
+        cities.name = "TamilNadu"
+        cities.country = "India"
+        citiesList.add(cities)
+
+        viewModel.configureCitiesData(citiesList)
+
+        Assert.assertFalse(cities.name, viewModel.doSearch("abcdefghijklmnopqrstuvwxyz1234567890sjdhgskjhgbsdkgjbdfhdfh"))
     }
 
 }
