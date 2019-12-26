@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 
 public interface CitiesAPIService {
 
-    @GET("ztwdk")
+    @GET("1bvxgc")
     Call<List<Cities>> getCities();
 }
 
