@@ -9,7 +9,7 @@ import org.junit.Test
 
 class CitiesViewModelTest {
 
-    var viewModel = CitiesViewModel()
+    var citiesViewModel = CitiesViewModel()
     var citiesRepository = CitiesRepository()
 
 
@@ -38,7 +38,7 @@ class CitiesViewModelTest {
         citiesRepository.fetchCitiesList().value?.let {
             Assert.assertEquals(
                 it.get(0).name,
-                viewModel.getCitiesList.value?.get(0)?.name
+                citiesViewModel.getCitiesList.value?.get(0)?.name
             )
         }
     }
@@ -46,9 +46,9 @@ class CitiesViewModelTest {
     @Test
     fun `test given view model configuring the data into configureCitiesData function when it returns empty list`() {
 
-        viewModel.configureCitiesData(emptyList())
+        citiesViewModel.configureCitiesData(emptyList())
 
-        Assert.assertEquals(viewModel.existingCitiesList.size, 0)
+        Assert.assertEquals(citiesViewModel.existingCitiesList.size, 0)
     }
 
     @Test
@@ -59,15 +59,15 @@ class CitiesViewModelTest {
         cities.country = "India"
         citiesList.add(cities)
 
-        viewModel.configureCitiesData(citiesList)
+        citiesViewModel.configureCitiesData(citiesList)
 
-        Assert.assertEquals(viewModel.existingCitiesList.get(0).name, "TamilNadu")
+        Assert.assertEquals(citiesViewModel.existingCitiesList.get(0).name, "TamilNadu")
     }
 
     @Test
     fun `test do search function returns not null when original data is empty`() {
-        viewModel.configureCitiesData(emptyList())
-        Assert.assertNotNull(viewModel.doSearch(""))
+        citiesViewModel.configureCitiesData(emptyList())
+        Assert.assertNotNull(citiesViewModel.doSearch(""))
     }
 
     @Test
@@ -78,13 +78,13 @@ class CitiesViewModelTest {
         cities.country = "India"
         citiesList.add(cities)
 
-        viewModel.configureCitiesData(citiesList)
-        viewModel.doSearch("test")
+        citiesViewModel.configureCitiesData(citiesList)
+        citiesViewModel.doSearch("test")
             .subscribe {
-                viewModel.existingCitiesList.clear()
-                viewModel.existingCitiesList.addAll(viewModel.filteredCitiesList)
+                citiesViewModel.existingCitiesList.clear()
+                citiesViewModel.existingCitiesList.addAll(citiesViewModel.filteredCitiesList)
             }
-        Assert.assertEquals(viewModel.existingCitiesList.size, 0)
+        Assert.assertEquals(citiesViewModel.existingCitiesList.size, 0)
     }
 
     @Test
@@ -95,13 +95,13 @@ class CitiesViewModelTest {
         cities.country = "India"
         citiesList.add(cities)
 
-        viewModel.configureCitiesData(citiesList)
-        viewModel.doSearch("abcdefghijklmnopqrstuvwxyz1234567890sjdhgskjhgbsdkgjbdfhdfh")
+        citiesViewModel.configureCitiesData(citiesList)
+        citiesViewModel.doSearch("abcdefghijklmnopqrstuvwxyz1234567890sjdhgskjhgbsdkgjbdfhdfh")
             .subscribe {
-                viewModel.existingCitiesList.clear()
-                viewModel.existingCitiesList.addAll(viewModel.filteredCitiesList)
+                citiesViewModel.existingCitiesList.clear()
+                citiesViewModel.existingCitiesList.addAll(citiesViewModel.filteredCitiesList)
             }
-        Assert.assertEquals(viewModel.existingCitiesList.size, 0)
+        Assert.assertEquals(citiesViewModel.existingCitiesList.size, 0)
     }
 
     @Test
@@ -112,13 +112,13 @@ class CitiesViewModelTest {
         cities.country = "India"
         citiesList.add(cities)
 
-        viewModel.configureCitiesData(citiesList)
-        viewModel.doSearch("TamilNadu")
+        citiesViewModel.configureCitiesData(citiesList)
+        citiesViewModel.doSearch("TamilNadu")
             .subscribe {
-                viewModel.existingCitiesList.clear()
-                viewModel.existingCitiesList.addAll(viewModel.filteredCitiesList)
+                citiesViewModel.existingCitiesList.clear()
+                citiesViewModel.existingCitiesList.addAll(citiesViewModel.filteredCitiesList)
             }
-        Assert.assertEquals(cities.name, viewModel.existingCitiesList.get(0).name)
+        Assert.assertEquals(cities.name, citiesViewModel.existingCitiesList.get(0).name)
     }
 
     @Test
@@ -129,13 +129,13 @@ class CitiesViewModelTest {
         cities.country = "India"
         citiesList.add(cities)
 
-        viewModel.configureCitiesData(citiesList)
-        viewModel.doSearch("India")
+        citiesViewModel.configureCitiesData(citiesList)
+        citiesViewModel.doSearch("India")
             .subscribe {
-                viewModel.existingCitiesList.clear()
-                viewModel.existingCitiesList.addAll(viewModel.filteredCitiesList)
+                citiesViewModel.existingCitiesList.clear()
+                citiesViewModel.existingCitiesList.addAll(citiesViewModel.filteredCitiesList)
             }
-        Assert.assertEquals(cities.name, viewModel.existingCitiesList.get(0).name)
-        Assert.assertEquals(cities.country, viewModel.existingCitiesList.get(0).country)
+        Assert.assertEquals(cities.name, citiesViewModel.existingCitiesList.get(0).name)
+        Assert.assertEquals(cities.country, citiesViewModel.existingCitiesList.get(0).country)
     }
 }
