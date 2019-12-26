@@ -67,4 +67,9 @@ class MainActivity : AppCompatActivity() {
     private fun setCitiesListAdapter(citiesList: List<Cities>) {
         citiesAdapter.loadCities(citiesList)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
+    }
 }
