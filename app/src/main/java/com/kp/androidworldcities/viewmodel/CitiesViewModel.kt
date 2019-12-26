@@ -1,11 +1,12 @@
 package com.kp.androidworldcities.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.kp.androidworldcities.model.Cities
 import com.kp.androidworldcities.repository.CitiesRepository
 import io.reactivex.Completable
 
-class CitiesViewModel {
+class CitiesViewModel :  ViewModel() {
 
     private val citiesRepository = CitiesRepository()
     private var originalCitiesList = listOf<Cities>()
