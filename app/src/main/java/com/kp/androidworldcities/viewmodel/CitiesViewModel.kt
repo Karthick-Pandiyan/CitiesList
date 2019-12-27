@@ -1,5 +1,6 @@
 package com.kp.androidworldcities.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.kp.androidworldcities.model.Cities
@@ -24,9 +25,11 @@ class CitiesViewModel :  ViewModel() {
         existingCitiesList.addAll(citiesList)
     }
 
+    @SuppressLint("DefaultLocale")
     fun doSearch(query : String): Completable = Completable.create {
         val extractedList = originalCitiesList.filter {
-            it.name?.contains(query)==true || it.country?.contains(query)==true
+            it.name?.toLowerCase()?.contains(query.toLowerCase())==true ||
+                    it.country?.toLowerCase()?.contains(query.toLowerCase())==true
         }.toList()
 
         filteredCitiesList.clear()
