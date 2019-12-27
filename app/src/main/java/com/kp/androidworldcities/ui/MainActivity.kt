@@ -18,6 +18,8 @@ import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.concurrent.TimeUnit
+import com.kp.androidworldcities.utilities.AlertDialogUtilities
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,13 +35,15 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerAdapter()
 
         citiesViewModel.getCitiesList.observe(this, Observer { citiesList ->
+            hideProgressBar()
+            handleResponse(citiesList)
             citiesList?.let {
-                progressBar.visibility = View.GONE
                 citiesViewModel.configureCitiesData(it)
                 setCitiesListAdapter(it)
                 initializeSearch()
             }
         })
+        populateErrorResponse()
     }
 
     private fun initializeSearch() {
@@ -68,8 +72,22 @@ class MainActivity : AppCompatActivity() {
         citiesAdapter.loadCities(citiesList)
     }
 
+    private fun handleResponse(citiesList: List<Cities>?) {
+        citiesViewModel.isErrorFromResponse(citiesList?.size, getString(R.string.error_description))
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.GONE
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         disposable.clear()
+    }
+
+    private fun populateErrorResponse() {
+        citiesViewModel.errorMessage.observe(this, Observer { description ->
+            AlertDialogUtilities.showDialog(this, description)
+        })
     }
 }
