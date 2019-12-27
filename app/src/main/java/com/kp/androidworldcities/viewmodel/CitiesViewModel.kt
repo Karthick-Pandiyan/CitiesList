@@ -11,7 +11,6 @@ import androidx.lifecycle.MutableLiveData
 
 class CitiesViewModel :  ViewModel() {
 
-    val errorMessage = MutableLiveData<String>()
     private val citiesRepository = CitiesRepository()
     private var originalCitiesList = listOf<Cities>()
     val existingCitiesList : MutableList<Cities> = mutableListOf()
@@ -37,11 +36,7 @@ class CitiesViewModel :  ViewModel() {
         it.onComplete()
     }
 
-    fun isErrorFromResponse(size : Int?, errorDescription: String){
-        if(size == null || size == 0){
-            errorMessage.value = errorDescription
-
-        }
-    }
+    val isErrorFromResponse : MutableLiveData<String>
+        get() = citiesRepository.errorMessage
 
 }

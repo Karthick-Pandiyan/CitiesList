@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
 
         citiesViewModel.getCitiesList.observe(this, Observer { citiesList ->
             hideProgressBar()
-            handleResponse(citiesList)
             citiesList?.let {
                 citiesViewModel.configureCitiesData(it)
                 setCitiesListAdapter(it)
@@ -72,10 +71,6 @@ class MainActivity : AppCompatActivity() {
         citiesAdapter.loadCities(citiesList)
     }
 
-    private fun handleResponse(citiesList: List<Cities>?) {
-        citiesViewModel.isErrorFromResponse(citiesList?.size, getString(R.string.error_description))
-    }
-
     private fun hideProgressBar() {
         progressBar.visibility = View.GONE
     }
@@ -86,8 +81,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun populateErrorResponse() {
-        citiesViewModel.errorMessage.observe(this, Observer { description ->
-            AlertDialogUtilities.showDialog(this, description)
+        citiesViewModel.isErrorFromResponse.observe(this, Observer {
+            hideProgressBar()
+            AlertDialogUtilities.showDialog(this)
         })
     }
 }
