@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import com.kp.androidworldcities.model.Cities
 import com.kp.androidworldcities.repository.CitiesRepository
 import io.reactivex.Completable
+import androidx.lifecycle.MutableLiveData
+
 
 class CitiesViewModel :  ViewModel() {
 
+    val errorMessage = MutableLiveData<String>()
     private val citiesRepository = CitiesRepository()
     private var originalCitiesList = listOf<Cities>()
     val existingCitiesList : MutableList<Cities> = mutableListOf()
@@ -29,6 +32,13 @@ class CitiesViewModel :  ViewModel() {
         filteredCitiesList.clear()
         filteredCitiesList.addAll(extractedList)
         it.onComplete()
+    }
+
+    fun isErrorFromResponse(size : Int?, errorDescription: String){
+        if(size == null || size == 0){
+            errorMessage.value = errorDescription
+
+        }
     }
 
 }
